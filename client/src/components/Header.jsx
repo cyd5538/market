@@ -16,8 +16,6 @@ const Component = styled(AppBar)`
     background-color: #ff8b3b;
 
 `
-
-
 export default function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -37,7 +35,7 @@ export default function Header() {
                         영진 마켓 <FcInTransit />
                     </Typography>
 
-                    <Typography variant="h7" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>
+                    <Typography variant="h7" component={Link} to="/all" sx={{ mr: 4, textDecoration: "none", color: "white" }}>
                         모든 상품
                     </Typography>
                     <Typography variant="h7" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>

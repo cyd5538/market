@@ -3,6 +3,7 @@ import {Route,Routes} from 'react-router-dom';
 import Header from './components/Header';
 import Home from './page/Home';
 import Sign from './components/sign/Sign';
+import All from './page/All';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/all" element={<All />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign" element={<Sign />} />
       </Routes>
