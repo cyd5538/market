@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState,useEffect} from 'react';
 import { Box, TextField, Button, styled, Typography } from '@mui/material'
 import Logo from '../../assets/image.jpg'
 import { useNavigate } from 'react-router-dom'
-import { login, reset } from '../../features/auth/authSlice'
+import { register, reset } from '../../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../Spinner';
 
@@ -65,13 +65,15 @@ const Text = styled(Typography)`
 
 
 
-const Login = () => {
+const Sign = () => {
     const [formData, setFormData] = useState({
+        name: '',
         email: '',
         password: '',
+        password2: '',
     })
 
-    const { email, password } = formData
+    const { name, email, password, password2 } = formData
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -86,15 +88,15 @@ const Login = () => {
         }
 
         if (isSuccess || user) {
-            navigate('/')
+            navigate('/login')
         }
 
         dispatch(reset())
     }, [user, isError, isSuccess, message, navigate, dispatch])
 
     const onChange = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
+        setFormData((prev) => ({
+            ...prev,
             [e.target.name]: e.target.value,
         }))
     }
@@ -102,12 +104,17 @@ const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        const userData = {
-            email,
-            password,
-        }
+        if (password !== password2) {
+            alert('비밀번호가 일치하지 않습니다.')
+        } else {
+            const userData = {
+                name,
+                email,
+                password,
+            }
 
-        dispatch(login(userData))
+            dispatch(register(userData))
+        }
     }
 
     if (isLoading) {
@@ -117,33 +124,51 @@ const Login = () => {
         <Component>
             <Box>
                 <Image src={Logo} alt="Logo" />
+
                 <Wrapper>
                     <form onSubmit={onSubmit}>
-                        <TextField
-                            type="email"
-                            variant="standard"
-                            label="email"
+                        <TextField 
+                            variant="standard" 
+                            name='name'
+                            value={name}
+                            onChange={onChange} 
+                            label="Name"
+                        />
+                        <TextField 
+                            type="email" 
+                            variant="standard"               
                             name='email'
                             value={email}
-                            onChange={onChange}
+                            onChange={onChange} 
+                            label="email" 
                         />
-                        <TextField
-                            type="password"
-                            variant="standard"
-                            label="Password"
+                        <TextField 
+                            type="password" 
+                            variant="standard" 
                             name='password'
                             value={password}
-                            placeholder='비밀번호'
-                            onChange={onChange}
+                            onChange={onChange} 
+                            label="Password" 
                         />
-                        <LoginButton value="submit" variant="contained">Login</LoginButton>
+                        <TextField 
+                            type="password" 
+                            variant="standard" 
+                            name='password2'
+                            value={password2}
+                            onChange={onChange}
+                            label="Password2" 
+                        />
+                        <SignupButton type="submit" variant="contained" >Signup</SignupButton>
                         <Text>OR</Text>
-                        <SignupButton variant="contained">Create an account</SignupButton>
+                        <LoginButton variant="contained">Already have an account</LoginButton>
                     </form>
                 </Wrapper>
+
+
+
             </Box>
         </Component>
     )
 }
 
-export default Login
+export default Sign

@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material'
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Component = styled(AppBar)`
     background-color: #ff8b3b;
@@ -13,6 +16,16 @@ const Component = styled(AppBar)`
 
 
 export default function Header() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+
+    const onLogout = () => {
+        dispatch(logout());
+        dispatch(reset());
+        navigate("/");
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Component position="static">
@@ -30,7 +43,14 @@ export default function Header() {
                     <Typography variant="h7" component={Link} sx={{ flexGrow: 1, mr: 4, textDecoration: "none", color: "white" }}>
                         나의 찜 목록
                     </Typography>
-                    <Button component={Link} to="/login" color="inherit">Login</Button>
+                    {user ? 
+                        <Button onClick={onLogout} color="inherit">logout</Button>
+                        : <>
+                            <Button component={Link} to="/login" color="inherit">Login</Button>
+                            <Button component={Link} to="/sign" color="inherit">Sign Up</Button>
+                          </>
+                    }
+
                 </Toolbar>
             </Component>
         </Box>
