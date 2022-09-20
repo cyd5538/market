@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import AllCard from '../components/page/AllCard';
+import AllCard from '../components/Home/AllCard';
 import styled from 'styled-components';
-import AddCard from '../components/page/AddCard'
+import AddCard from '../components/Home/AddCard'
+import {  useSelector } from "react-redux";
+
 
 const AllStyle = styled.div`
   width: 100%;
   background-color: #ff8b5b;
+  position: relative;
+  .Modal{
+    position: absolute;
+    top: 30px;
+    right: 80px;
+  }
 `
 const Container = styled.div`
   padding-bottom: 100px;
@@ -34,16 +42,18 @@ const All = () => {
   const getAlldata = async () => {
     const response = await axios.get('http://localhost:5000/api/goods/all');
     setAlldata(response.data);
-    console.log(alldata);
+
   }
 
   useEffect(() => {
     getAlldata()
-  },[])
+  },[alldata])
+
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <AllStyle>
-        <AddCard />
+        {user ? <AddCard /> : <></>}
       <Container>
         <CardStyle>
             {alldata?.map((data) => (

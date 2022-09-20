@@ -14,7 +14,6 @@ import { FcInTransit } from "react-icons/fc";
 
 const Component = styled(AppBar)`
     background-color: #ff8b3b;
-
 `
 export default function Header() {
     const navigate = useNavigate();
