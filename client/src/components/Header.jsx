@@ -9,9 +9,12 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { FcInTransit } from "react-icons/fc";
+
 
 const Component = styled(AppBar)`
     background-color: #ff8b3b;
+
 `
 
 
@@ -30,8 +33,8 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
             <Component position="static">
                 <Toolbar>
-                    <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "white" }}>
-                        영진 마켓
+                    <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "white", fontWeight: 600 }}>
+                        영진 마켓 <FcInTransit />
                     </Typography>
 
                     <Typography variant="h7" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>
