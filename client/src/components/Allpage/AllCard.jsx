@@ -8,17 +8,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { styled } from '@mui/material'
 
 const Component = styled(Card)`
-    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.5);
+
 `
 
 export default function AllCard({data}) {
   return (
     
-        <Component sx={{ maxWidth: 345, width: "100%", height: "auto" }}>
+        <Component sx={{ maxWidth: 300, width: "100%", height: "auto" }}>
             <CardActionArea>
                 <CardMedia
                 component="img"
-                height="140"
+                height="220"
                 image={data.image}
                 alt="green iguana"
                 />
@@ -34,7 +34,7 @@ export default function AllCard({data}) {
                 </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
+            <CardActions sx={{ display: "flex", justifyContent: "center"}}>
                 <Button size="small" color="primary">
                 <Fab  aria-label="like">
                 <FavoriteIcon />

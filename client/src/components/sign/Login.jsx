@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { login, reset } from '../../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../Spinner';
+import { Link } from 'react-router-dom';
 
 const Component = styled(Box)`
     
@@ -101,7 +102,7 @@ const Login = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
+        console.log(123)
         const userData = {
             email,
             password,
@@ -136,9 +137,9 @@ const Login = () => {
                             placeholder='비밀번호'
                             onChange={onChange}
                         />
-                        <LoginButton value="submit" variant="contained">Login</LoginButton>
+                        <LoginButton type="submit" variant="contained">Login</LoginButton>
                         <Text>OR</Text>
-                        <SignupButton variant="contained">Create an account</SignupButton>
+                        <SignupButton component={Link} to="/sign" variant="contained">Create an account</SignupButton>
                     </form>
                 </Wrapper>
             </Box>

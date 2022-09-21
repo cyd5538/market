@@ -23,6 +23,8 @@ export default function AddCard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+  
   const [AddData, setAddData] = useState({
     title: '',
     price: '',
@@ -55,7 +57,8 @@ export default function AddCard() {
       title,
       price,
       description,
-      image
+      image,
+
     },config)
     setOpen(false)
   } 

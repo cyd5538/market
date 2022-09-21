@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { register, reset } from '../../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../Spinner';
+import { Link } from 'react-router-dom';
 
 const Component = styled(Box)`
     
@@ -160,7 +161,7 @@ const Sign = () => {
                         />
                         <SignupButton type="submit" variant="contained" >Signup</SignupButton>
                         <Text>OR</Text>
-                        <LoginButton variant="contained">Already have an account</LoginButton>
+                        <LoginButton component={Link} to="/login" variant="contained">Already have an account</LoginButton>
                     </form>
                 </Wrapper>
 

@@ -10,10 +10,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FcInTransit } from "react-icons/fc";
-
+import HeaderMobile from './HeaderMobile';
 
 const Component = styled(AppBar)`
-    background-color: #ff8b3b;
+    background-color: black;
+    .mobile_on{
+        display: none;
+    }
+    @media screen and (max-width:650px) {
+        .notmobile{
+            display : none;
+        }
+
+    }
 `
 export default function Header() {
     const navigate = useNavigate();
@@ -29,28 +38,34 @@ export default function Header() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Component position="static">
-                <Toolbar>
+                <Toolbar >
                     <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "white", fontWeight: 600 }}>
                         영진 마켓 <FcInTransit />
                     </Typography>
 
-                    <Typography variant="h7" component={Link} to="/all" sx={{ mr: 4, textDecoration: "none", color: "white" }}>
+                    <Typography className='notmobile' variant="h7" component={Link} to="/all" sx={{ mr: 4, textDecoration: "none", color: "white" }}>
                         모든 상품
                     </Typography>
-                    <Typography variant="h7" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>
-                        내가 올린 상품
-                    </Typography>
-                    <Typography variant="h7" component={Link} sx={{ flexGrow: 1, mr: 4, textDecoration: "none", color: "white" }}>
-                        나의 찜 목록
-                    </Typography>
-                    {user ? 
-                        <Button onClick={onLogout} color="inherit">logout</Button>
-                        : <>
+                    {user ?
+                        <>
+                            <Typography className='notmobile' variant="h7" to="/mygoods" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>
+                                내가 올린 상품
+                            </Typography>
+                            <Typography className='notmobile' variant="h7" component={Link} sx={{ flexGrow: 1, mr: 4, textDecoration: "none", color: "white" }}>
+                                나의 찜 목록
+                            </Typography>
+                        </>
+                        :
+                        <></>
+                    }
+                    {user ?
+                        <Button className='notmobile' onClick={onLogout} color="inherit">logout</Button>
+                        : <div className='notmobile'>
                             <Button component={Link} to="/login" color="inherit">Login</Button>
                             <Button component={Link} to="/sign" color="inherit">Sign Up</Button>
-                          </>
+                        </div>
                     }
-
+                    <HeaderMobile />
                 </Toolbar>
             </Component>
         </Box>
