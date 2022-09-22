@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const style = {
   position: 'absolute',
@@ -18,13 +19,23 @@ const style = {
   p: 4,
 };
 
+const toastObject = {
+  position: "top-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+}
+
 export default function AddCard() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
 
-  
+
   const [AddData, setAddData] = useState({
     title: '',
     price: '',
@@ -45,26 +56,32 @@ export default function AddCard() {
   const data = JSON.parse(localStorage.getItem("user"));
   const token = data.token;
 
-  
+
   const handleAdd = async (e) => {
     e.preventDefault()
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-    await axios.post('http://localhost:5000/api/goods', {
-      title,
-      price,
-      description,
-      image,
+    if (!title || !price || !description) {
+      toast('😒 빈칸을 채워주세요', toastObject);
+    } else {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      await axios.post('http://localhost:5000/api/goods', {
+        title,
+        price,
+        description,
+        image,
 
-    },config)
-    setOpen(false)
-  } 
+      }, config)
+      toast('👌 상품이 추가되었습니다.', toastObject);
+      setOpen(false)
+    }
+
+  }
   return (
     <div className='Modal'>
-      <Button variant="contained" color="error" onClick={handleOpen}>상품 추가</Button>
+      <Button variant="contained" onClick={handleOpen}>상품 추가</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -83,13 +100,13 @@ export default function AddCard() {
                 marginTop: 2
               }}
             >
-              <TextField 
-                fullWidth 
-                label="제목" 
+              <TextField
+                fullWidth
+                label="제목"
                 id="fullWidth"
                 name='title'
                 value={title}
-                onChange={onChange} 
+                onChange={onChange}
               />
             </Box>
             <Box
@@ -99,13 +116,13 @@ export default function AddCard() {
                 marginTop: 2
               }}
             >
-              <TextField 
-                type="number" 
-                fullWidth label="가격" 
+              <TextField
+                type="number"
+                fullWidth label="가격"
                 id="fullWidth"
                 name='price'
                 value={price}
-                onChange={onChange}  
+                onChange={onChange}
               />
             </Box>
             <Box
@@ -115,14 +132,14 @@ export default function AddCard() {
                 marginTop: 2
               }}
             >
-              <TextField 
-                fullWidth 
-                label="Image URL" 
+              <TextField
+                fullWidth
+                label="Image URL"
                 id="fullWidth"
                 name='image'
                 value={image}
-                onChange={onChange}  
-               />
+                onChange={onChange}
+              />
             </Box>
             <Box
               sx={{
@@ -142,14 +159,14 @@ export default function AddCard() {
                 rows={6}
                 name='description'
                 value={description}
-                onChange={onChange}  
+                onChange={onChange}
               />
             </Box>
             <Button sx={{
               width: 300,
               maxWidth: '100%',
               marginTop: 2
-            }} variant="contained" color="error" type="submit">상품 추가
+            }} variant="contained" type="submit">상품 추가
             </Button>
           </form>
         </Box>

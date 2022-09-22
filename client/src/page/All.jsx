@@ -46,7 +46,7 @@ const All = () => {
 
   useEffect(() => {
     getAlldata()
-  },[])
+  },[alldata])
 
   const { user } = useSelector((state) => state.auth);
 

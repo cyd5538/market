@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Goods = require('../models/goodsModel')
-const User = require('../models/userModel')
+
 
 
 const getGoods = asyncHandler(async (req, res) => {
@@ -14,6 +14,12 @@ const getGoods = asyncHandler(async (req, res) => {
 const AllGoods = asyncHandler(async (req, res) => {
     const goods = await Goods.find()
     res.status(200).json(goods)
+})
+
+const IdGoods = asyncHandler(async (req, res) => {
+  const goods = await Goods.findById(req.params.id)
+
+  res.status(200).json(goods)
 })
 
 
@@ -35,24 +41,20 @@ const setGoods = asyncHandler(async (req, res) => {
   res.status(200).json(goods)
 })
 
-// @desc    Update goal
-// @route   PUT /api/goals/:id
-// @access  Private
+
 const updateGoods = asyncHandler(async (req, res) => {
   const goods = await Goods.findById(req.params.id)
-
   if (!goods) {
     res.status(400)
-    throw new Error('Goal not found')
+    throw new Error('goods not found')
   }
 
-  // Check for user
+
   if (!req.user) {
     res.status(401)
     throw new Error('User not found')
   }
 
-  // Make sure the logged in user matches the goal user
   if (goods.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized')
@@ -65,24 +67,21 @@ const updateGoods = asyncHandler(async (req, res) => {
   res.status(200).json(updatedGood)
 })
 
-// @desc    Delete goal
-// @route   DELETE /api/goals/:id
-// @access  Private
+
 const deleteGoods = asyncHandler(async (req, res) => {
   const goods = await Goods.findById(req.params.id)
-
   if (!goods) {
     res.status(400)
     throw new Error('Goal not found')
   }
 
-  // Check for user
+
   if (!req.user) {
     res.status(401)
     throw new Error('User not found')
   }
 
-  // Make sure the logged in user matches the goal user
+
   if (goods.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized')
@@ -95,6 +94,7 @@ const deleteGoods = asyncHandler(async (req, res) => {
 
 module.exports = {
   getGoods,
+  IdGoods,
   setGoods,
   updateGoods,
   deleteGoods,

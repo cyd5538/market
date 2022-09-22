@@ -7,9 +7,22 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
+
+
+const toastObject = {
+  position: "top-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+}
 
 export default function MyGoodsCard({data}) {
-    
+
     // 토큰을 가져와서 headers에 넣기 
     const datas = JSON.parse(localStorage.getItem("user"));
     const token = datas.token;
@@ -22,13 +35,8 @@ export default function MyGoodsCard({data}) {
             },
         }
         await axios.delete(`http://localhost:5000/api/goods/${id}`,config)
+        toast('❌ 삭제되었습니다.', toastObject);
     } 
-  console.log(data.length)
-  if(data.length === 0){
-    return (
-      <h1>데이터가 아d직 없습니다.</h1>
-    )
-  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -50,7 +58,7 @@ export default function MyGoodsCard({data}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => handleDelete(data._id)} size="small">삭제</Button>
+        <Button onClick={() => handleDelete(data._id)} startIcon={<DeleteIcon />} size="small" sx={{marginRight: 2}}>삭제</Button>
         <MyGoodsEdit data={data}/>
       </CardActions>
     </Card>

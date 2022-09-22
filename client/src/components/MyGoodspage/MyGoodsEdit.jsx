@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const style = {
   position: 'absolute',
@@ -18,16 +19,28 @@ const style = {
   p: 4,
 };
 
-export default function MyGoodsEdit({data}) {
+const toastObject = {
+  position: "top-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+}
+
+export default function MyGoodsEdit({ data }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+
   const [AddData, setAddData] = useState({
-    title: '',
-    price: '',
-    description: '',
-    image: '',
+    title: data.title,
+    price: data.price,
+    description: data.description,
+    image: data.image,
   })
 
   const { title, price, description, image } = AddData
@@ -43,25 +56,39 @@ export default function MyGoodsEdit({data}) {
   const datas = JSON.parse(localStorage.getItem("user"));
   const token = datas.token;
 
-  
-  const handleAdd = async (e) => {
-    e.preventDefault()
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+
+  const handleAdd = async (id) => {
+
+    if (!title || !price || !description) {
+      toast('😒 빈칸을 채워주세요', toastObject);
+    } else {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      try {
+        await axios.patch(`http://localhost:5000/api/goods/${id}`, {
+          title,
+          price,
+          description,
+          image,
+
+        }, config)
+        setOpen(false)
+        toast('👏 상품이 업데이트되었습니다.', toastObject);
+      } catch (error) {
+        console.log(error)
+      }
     }
-    await axios.post('http://localhost:5000/api/goods', {
-      title,
-      price,
-      description,
-      image
-    },config)
-    setOpen(false)
-  } 
+
+
+
+
+  }
   return (
     <div className='Modal'>
-      <Button variant="contained" size="small" onClick={handleOpen}>Edit</Button>
+      <Button variant="contained" onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -70,85 +97,84 @@ export default function MyGoodsEdit({data}) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            상품 수정
+            상품수정하기
           </Typography>
-          <form onSubmit={handleAdd}>
-            <Box
-              sx={{
-                width: 300,
-                maxWidth: '100%',
-                marginTop: 2
-              }}
-            >
-              <TextField 
-                fullWidth 
-                label="제목" 
-                id="fullWidth"
-                name='title'
-                value={data.title}
-                onChange={onChange} 
-              />
-            </Box>
-            <Box
-              sx={{
-                width: 300,
-                maxWidth: '100%',
-                marginTop: 2
-              }}
-            >
-              <TextField 
-                type="number" 
-                fullWidth label="가격" 
-                id="fullWidth"
-                name='price'
-                value={data.price}
-                onChange={onChange}  
-              />
-            </Box>
-            <Box
-              sx={{
-                width: 300,
-                maxWidth: '100%',
-                marginTop: 2
-              }}
-            >
-              <TextField 
-                fullWidth 
-                label="Image URL" 
-                id="fullWidth"
-                name='image'
-                value={data.image}
-                onChange={onChange}  
-               />
-            </Box>
-            <Box
-              sx={{
-                width: 300,
-                maxWidth: '100%',
-                marginTop: 2
-              }}
-            >
-              <TextField
-                sx={{
-                  width: 300,
-                  maxWidth: '100%',
-                }}
-                id="outlined-multiline-static"
-                label="설명"
-                multiline
-                rows={6}
-                name='description'
-                value={data.description}
-                onChange={onChange}  
-              />
-            </Box>
-            <Button sx={{
+          <Box
+            sx={{
               width: 300,
               maxWidth: '100%',
               marginTop: 2
-            }} variant="contained" type="submit">상품 수정
-            </Button>
-          </form>
+            }}
+          >
+            <TextField
+              fullWidth
+              label="제목"
+              id="fullWidth"
+              name='title'
+              value={title}
+              onChange={onChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: 300,
+              maxWidth: '100%',
+              marginTop: 2
+            }}
+          >
+            <TextField
+              type="number"
+              fullWidth label="가격"
+              id="fullWidth"
+              name='price'
+              value={price}
+              onChange={onChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: 300,
+              maxWidth: '100%',
+              marginTop: 2
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Image URL"
+              id="fullWidth"
+              name='image'
+              value={image}
+              onChange={onChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: 300,
+              maxWidth: '100%',
+              marginTop: 2
+            }}
+          >
+            <TextField
+              sx={{
+                width: 300,
+                maxWidth: '100%',
+              }}
+              id="outlined-multiline-static"
+              label="설명"
+              multiline
+              rows={6}
+              name='description'
+              value={description}
+              onChange={onChange}
+            />
+          </Box>
+          <Button sx={{
+            width: 300,
+            maxWidth: '100%',
+            marginTop: 2
+          }} variant="contained" onClick={() => handleAdd(data._id)}>상품 업데이트
+          </Button>
+
         </Box>
       </Modal>
     </div>
