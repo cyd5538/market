@@ -8,7 +8,6 @@ import {  useSelector } from "react-redux";
 
 const AllStyle = styled.div`
   width: 100%;
-
   position: relative;
   .Modal{
     position: absolute;

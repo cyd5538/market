@@ -9,6 +9,7 @@ import All from "./page/All";
 import MyGoods from "./page/MyGoods";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Favor from "./page/Favor";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/:id" element={<GoodsDetail />} />
         <Route path="/sign" element={<Sign />} />
+        <Route path="/favor" element={<Favor />} />
       </Routes>
       <Footer />
     </div>

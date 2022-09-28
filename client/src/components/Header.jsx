@@ -51,7 +51,7 @@ export default function Header() {
                             <Typography className='notmobile' variant="h7" to="/mygoods" component={Link} sx={{ mr: 4, textDecoration: "none", color: "white" }}>
                                 내가 올린 상품
                             </Typography>
-                            <Typography className='notmobile' variant="h7" component={Link} sx={{ flexGrow: 1, mr: 4, textDecoration: "none", color: "white" }}>
+                            <Typography className='notmobile' variant="h7" to="/favor" component={Link} sx={{ flexGrow: 1, mr: 4, textDecoration: "none", color: "white" }}>
                                 나의 찜 목록
                             </Typography>
                         </>

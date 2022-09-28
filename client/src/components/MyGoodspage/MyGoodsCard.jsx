@@ -19,6 +19,7 @@ const toastObject = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
+  theme: "dark",
 }
 
 export default function MyGoodsCard({data}) {
@@ -39,7 +40,7 @@ export default function MyGoodsCard({data}) {
     } 
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300, width: "100%" }}>
       <CardMedia
         component="img"
         height="140"

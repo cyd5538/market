@@ -1,52 +1,62 @@
 const asyncHandler = require("express-async-handler");
-
 const Favor = require("../models/favorModel");
 
-const getFavor = asyncHandler(async (req, res) => {
-  const favors = await Favor.find({ user: req.user.id });
+const AllFavors = asyncHandler(async (req, res) => {
+  const favors = await Favor.find({ user: req.user.id })
+  res.status(200).json(favors)
+})
 
-  res.status(200).json(favors);
-});
+const getFavors = asyncHandler(async (req, res) => {
+  const favors = await Favor.find({ user: req.user.id })
+
+  res.status(200).json(favors)
+})
 
 const addFavor = asyncHandler(async (req, res) => {
-  if (!req.body.title) {
-    res.status(400);
-    throw new Error("Please add a field");
-  }
-
-const Favors = await Favor.create({
+  
+  const favors = await Favor.create({
     title: req.body.title,
     price: req.body.price,
+    id: req.params.id,
     image: req.body.image,
-    id: req.body.id
-});
-console.log(Favors);
-res.status(200).json(Favors);
-});
+    url: req.body.url,
+    user: req.user.id,
+  })
+
+  res.status(200).json(favors)
+})
+
+
+
 
 const DeleteFavor = asyncHandler(async (req, res) => {
-    const Favors = await Favor.findById(req.params.id);
-    if (!Favors) {
-    res.status(400);
-    throw new Error("Goal not found");
-}
+  const Favors = await Favor.findById(req.params.id)
 
-if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-}
+  if (!Favors) {
+    res.status(400)
+    throw new Error('Goal not found')
+  }
 
-if (Favors.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
-}
+  if (!req.user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
 
-  await Favors.remove();
 
-  res.status(200).json({ id: req.params.id });
-});
+  if (Favors.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('User not authorized')
+  }
+
+  await Favors.remove()
+
+  res.status(200).json({ id: req.params.id })
+})
+
+
 module.exports = {
   addFavor,
-  getFavor,
   DeleteFavor,
+  AllFavors,
+  getFavors
 };

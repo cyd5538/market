@@ -2,13 +2,14 @@ const express = require('express')
 const router = express.Router()
 const {
    addFavor,
-   getFavor,
-   DeleteFavor
+   DeleteFavor,
+   AllFavors,
+   getFavors
   } = require('../controller/favorController')
 
 const { protect } = require('../middlewear/authMiddlewear')
 
-router.route('/').post(protect, addFavor).get(protect, getFavor)
-router.route('/id').delete(protect, DeleteFavor)
+router.route('/').post(protect, addFavor).get(protect,getFavors)
+router.route('/:id').delete(protect, DeleteFavor).get(protect,AllFavors)
 
 module.exports = router

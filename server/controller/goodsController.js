@@ -35,7 +35,6 @@ const setGoods = asyncHandler(async (req, res) => {
     description: req.body.description,
     image: req.body.image,
     user: req.user.id,
-   
   })
   
   res.status(200).json(goods)
@@ -70,6 +69,7 @@ const updateGoods = asyncHandler(async (req, res) => {
 
 const deleteGoods = asyncHandler(async (req, res) => {
   const goods = await Goods.findById(req.params.id)
+  console.log(goods)
   if (!goods) {
     res.status(400)
     throw new Error('Goal not found')

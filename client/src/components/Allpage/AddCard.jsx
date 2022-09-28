@@ -27,6 +27,7 @@ const toastObject = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
+  theme: "dark",
 }
 
 export default function AddCard() {

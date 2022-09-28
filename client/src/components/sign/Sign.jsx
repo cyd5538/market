@@ -6,6 +6,7 @@ import { register, reset } from '../../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Component = styled(Box)`
     
@@ -67,6 +68,16 @@ const Text = styled(Typography)`
 
 
 const Sign = () => {
+    const toastObject = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -82,10 +93,10 @@ const Sign = () => {
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
     )
-
+        
     useEffect(() => {
         if (isError) {
-            alert(message)
+            toast(message, toastObject);
         }
 
         if (isSuccess || user) {

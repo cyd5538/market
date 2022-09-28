@@ -3,18 +3,22 @@ const mongoose = require('mongoose');
 const favorSchema = mongoose.Schema({
      title: {
         type: String,
-        required: true,
+
       },
       price: {
         type: Number,
-        required: true
+
       },
       image: {
         type: String,
       },
-      id: {
+      url: {
         type: String,
-        required: true
+      },
+      user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: true,
       },
 },
 {

@@ -63,11 +63,12 @@ const LoginUser = asyncHandler(async (req,res) => {
 })
 
 const GetLoginUser = asyncHandler(async (req,res) => {
-    const {_id, name, email} = await User.findById(req.user.id)
+    const {_id, name, email, likeGoods} = await User.findById(req.user.id)
     res.status(200).json({
         id: _id,
         email,
-        name
+        name,
+        likeGoods
     }) 
 })
 
@@ -78,8 +79,10 @@ const generateToken = (id) => {
     })
 }
 
+
 module.exports = {
     registerUser,
     LoginUser,
-    GetLoginUser
+    GetLoginUser,
+
 }
