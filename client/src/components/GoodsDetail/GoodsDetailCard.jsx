@@ -48,7 +48,6 @@ export default function GoodsDetailCard({ idData, url }) {
     const data = response.data
 
     setFavor(data)
-    console.log(favor)
     await truefalse()
   }
   

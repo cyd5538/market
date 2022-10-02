@@ -1,7 +1,6 @@
 import Login from "./components/sign/Login";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Home from "./page/Home";
 import GoodsDetail from "./page/GoodsDetail";
 import Sign from "./components/sign/Sign";
@@ -35,7 +34,7 @@ function App() {
         <Route path="/sign" element={<Sign />} />
         <Route path="/favor" element={<Favor />} />
       </Routes>
-      <Footer />
+
     </div>
   );
 }

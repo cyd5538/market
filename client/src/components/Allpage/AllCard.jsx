@@ -7,10 +7,10 @@ import { styled } from '@mui/material'
 import { Link } from 'react-router-dom';
 
 const Component = styled(Card)`
-
+    margin-top: 30px;
 `
 
-export default function AllCard({ data }) {
+export default function AllCard({ data, user }) {
     return (
 
         <Component sx={{ maxWidth: 300, width: "100%", height: "auto" }}>
@@ -34,12 +34,14 @@ export default function AllCard({ data }) {
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-
+                
+                {user ? 
                 <Link style={{textDecoration: "none"}} to={`/${data._id}`}>
                     <Button variant="contained">
                         상세보기
                     </Button>
-                </Link>
+                </Link>: <></>}
+
             </CardActions>
         </Component>
 

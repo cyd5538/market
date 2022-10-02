@@ -17,10 +17,10 @@ export default function FavorCard({ favors }) {
 
    
     return (
-        <Card sx={{ maxWidth: 245, width: "100%" }}>
+        <Card sx={{ maxWidth: 300, width: "100%" }}>
             <CardMedia
                 component="img"
-                height="140"
+                height="200"
                 image={favors.image}
                 alt="green iguana"
             />
@@ -32,7 +32,7 @@ export default function FavorCard({ favors }) {
                     {favors.price} 원
                 </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions sx={{ display:"flex", justifyContent: "center"}}>
                 <Link to={`/${favors.url}`}><Button variant="contained" size="small">상세보기</Button></Link>
             </CardActions>
         </Card>
