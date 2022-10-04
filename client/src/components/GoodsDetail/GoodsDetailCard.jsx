@@ -6,9 +6,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
+import { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
 
 const toastObject = {
   position: "top-right",
@@ -20,6 +26,15 @@ const toastObject = {
   progress: undefined,
   theme: "dark",
 }
+
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
 
 export default function GoodsDetailCard({ idData, url }) {
 
@@ -116,17 +131,46 @@ export default function GoodsDetailCard({ idData, url }) {
 
   return (
     <Card sx={{ maxWidth: 700, margin: "50px auto" }}>
-      <CardMedia
-        component="img"
-        height="400"
-        image={idData.image}
-        alt="green iguana"
-      />
+        <Swiper
+        modules={[Navigation, Pagination]}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+      >
+        <SwiperSlide>
+            <CardMedia
+            component="img"
+            height="400"
+            image={idData.image}
+            alt="green iguana"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+        <CardMedia
+            component="img"
+            height="400"
+            image={idData.image2}
+            alt="green iguana"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+        <CardMedia
+            component="img"
+            height="400"
+            image={idData.image3}
+            alt="green iguana"
+          />
+        </SwiperSlide>
+      </Swiper>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {idData?.title}
         </Typography>
-        <Typography variant="h6">
+        <Typography gutterBottom variant="h7" component="div">
+          판매자 : {idData?.name}
+        </Typography>
+        <Typography variant="h7">
           가격 : {idData?.price}원
         </Typography>
         <Typography variant="h7" color="text.secondary" sx={{ marginTop: '40px' }}>

@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import { useSelector } from "react-redux";
 const style = {
   position: 'absolute',
   top: '50%',
@@ -35,16 +35,17 @@ export default function AddCard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
+  const { user } = useSelector((state) => state.auth);
 
   const [AddData, setAddData] = useState({
     title: '',
     price: '',
     description: '',
     image: '',
+    image2: ""
   })
 
-  const { title, price, description, image } = AddData
+  const { title, price, description, image, image2, image3 } = AddData
 
   const onChange = (e) => {
     setAddData((prev) => ({
@@ -73,7 +74,9 @@ export default function AddCard() {
         price,
         description,
         image,
-
+        image2,
+        image3,
+        name: user.name
       }, config)
       toast('👌 상품이 추가되었습니다.', toastObject);
       setOpen(false)
@@ -139,6 +142,38 @@ export default function AddCard() {
                 id="fullWidth"
                 name='image'
                 value={image}
+                onChange={onChange}
+              />
+            </Box>
+            <Box
+              sx={{
+                width: 300,
+                maxWidth: '100%',
+                marginTop: 2
+              }}
+            >
+              <TextField
+                fullWidth
+                label="Image URL2"
+                id="fullWidth"
+                name='image2'
+                value={image2}
+                onChange={onChange}
+              />
+            </Box>
+            <Box
+              sx={{
+                width: 300,
+                maxWidth: '100%',
+                marginTop: 2
+              }}
+            >
+              <TextField
+                fullWidth
+                label="Image URL3"
+                id="fullWidth"
+                name='image3'
+                value={image3}
                 onChange={onChange}
               />
             </Box>

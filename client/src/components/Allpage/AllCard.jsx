@@ -11,8 +11,8 @@ const Component = styled(Card)`
 `
 
 export default function AllCard({ data, user }) {
-    return (
 
+    return (
         <Component sx={{ maxWidth: 300, width: "100%", height: "auto" }}>
             <CardActionArea>
                 <CardMedia
@@ -24,6 +24,9 @@ export default function AllCard({ data, user }) {
                 <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
                         {data.title}
+                    </Typography>
+                    <Typography gutterBottom variant="h7" component="div">
+                        {data.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         가격 : {data.price}원
