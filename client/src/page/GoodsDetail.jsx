@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import GoodsDetailCard from '../components/GoodsDetail/GoodsDetailCard';
+import styled from 'styled-components';
+
+const DetailStyle = styled.div`
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height: 100vh;
+`
+
 
 const GoodsDetail = () => {
   const { id } = useParams();
@@ -29,11 +37,11 @@ const GoodsDetail = () => {
   }, [])
 
   return (
-    <div>
+    <DetailStyle>
       <GoodsDetailCard 
         idData={idData} url={id}
       />
-    </div>
+    </DetailStyle>
   )
 }
 

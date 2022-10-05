@@ -13,8 +13,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import styled from 'styled-components'
 
 
+
+const CardStyle = styled.div`
+  img{
+    width: auto;
+    margin: auto;
+  }
+`
 
 const toastObject = {
   position: "top-right",
@@ -130,11 +138,11 @@ export default function GoodsDetailCard({ idData, url }) {
   }, [favor, IsFavor])
 
   return (
-    <Card sx={{ maxWidth: 700, margin: "50px auto" }}>
+    <CardStyle>
+    <Card sx={{ maxWidth: 700, margin: "auto"}}>
         <Swiper
         modules={[Navigation, Pagination]}
         slidesPerView={1}
-        navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
       >
@@ -142,26 +150,33 @@ export default function GoodsDetailCard({ idData, url }) {
             <CardMedia
             component="img"
             height="400"
+            width="auto"
             image={idData.image}
-            alt="green iguana"
+            alt="image"
           />
         </SwiperSlide>
-        <SwiperSlide>
-        <CardMedia
-            component="img"
-            height="400"
-            image={idData.image2}
-            alt="green iguana"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-        <CardMedia
-            component="img"
-            height="400"
-            image={idData.image3}
-            alt="green iguana"
-          />
-        </SwiperSlide>
+        {idData.image2 ? 
+          <SwiperSlide>
+          <CardMedia
+              component="img"
+              height="400"
+              image={idData.image2}
+              alt="image"
+            />
+          </SwiperSlide> :
+          <></>
+        }
+        {idData.image3 ? 
+          <SwiperSlide>
+          <CardMedia
+              component="img"
+              height="400"
+              image={idData.image3}
+              alt="image"
+            />
+          </SwiperSlide> :
+          <></>
+        }
       </Swiper>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -192,5 +207,6 @@ export default function GoodsDetailCard({ idData, url }) {
       </CardActions>
       }
     </Card>
+    </CardStyle>
   );
 }

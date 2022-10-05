@@ -192,7 +192,7 @@ export default function AddCard() {
                 id="outlined-multiline-static"
                 label="설명"
                 multiline
-                rows={6}
+                rows={3}
                 name='description'
                 value={description}
                 onChange={onChange}

@@ -34,6 +34,9 @@ const setGoods = asyncHandler(async (req, res) => {
     price: req.body.price,
     description: req.body.description,
     image: req.body.image,
+    image2: req.body.image2,
+    image3: req.body.image3,
+    name: req.body.name,
     user: req.user.id,
   })
   

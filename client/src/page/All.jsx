@@ -8,23 +8,21 @@ import TextField from '@mui/material/TextField';
 import { toast } from 'react-toastify';
 
 const AllStyle = styled.div`
-  width: 100%;
-  position: relative;
-  .search{
-    position: absolute;
-    top: 30px;
-    right: 140px;
-    width: 300px;
-    padding: 5px;
-    overflow: hidden;
+  .container{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    padding-top: 50px;
   }
-  .Modal{
-    position: absolute;
-    top: 45px;
-    right: 100px;
+  input{
+    border: 1px solid ${props => props.theme.tagLineColor};
+    color: ${props => props.theme.tagLineColor};
   }
-  h2{
-    text-align: center;
+  label{
+    color: ${props => props.theme.tagLineColor};
   }
 `
 const Container = styled.div`
@@ -32,11 +30,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin : auto;
-
 `
 
 const CardStyle = styled.div`
-    padding-top: 100px;
+    padding-top: 50px;
     width: 90%;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -44,7 +41,6 @@ const CardStyle = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
-    
 `
 
 const toastObject = {
@@ -90,7 +86,7 @@ const All = () => {
 
   return (
     <AllStyle>
-      <div className='search'>
+      <div className='container'>
         <form onSubmit={handleSubmit}>
           <TextField 
             type="text"
@@ -102,9 +98,8 @@ const All = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </form>
-      </div>
       {user ? <AddCard /> : <></>} 
-    
+      </div>
       {searchData.length > 0 ?
         <Container>
           <CardStyle>

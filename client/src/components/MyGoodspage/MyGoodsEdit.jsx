@@ -42,9 +42,11 @@ export default function MyGoodsEdit({ data }) {
     price: data.price,
     description: data.description,
     image: data.image,
+    image2: data.image2,
+    image3: data.image3,
   })
 
-  const { title, price, description, image } = AddData
+  const { title, price, description, image, image2, image3 } = AddData
 
   const onChange = (e) => {
     setAddData((prev) => ({
@@ -74,7 +76,8 @@ export default function MyGoodsEdit({ data }) {
           price,
           description,
           image,
-
+          image2,
+          image3
         }, config)
         setOpen(false)
         toast('👏 상품이 업데이트되었습니다.', toastObject);
@@ -82,9 +85,6 @@ export default function MyGoodsEdit({ data }) {
         console.log(error)
       }
     }
-
-
-
 
   }
   return (
@@ -156,6 +156,38 @@ export default function MyGoodsEdit({ data }) {
             }}
           >
             <TextField
+              fullWidth
+              label="Image URL2"
+              id="fullWidth"
+              name='image2'
+              value={image2}
+              onChange={onChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: 300,
+              maxWidth: '100%',
+              marginTop: 2
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Image URL3"
+              id="fullWidth"
+              name='image3'
+              value={image3}
+              onChange={onChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: 300,
+              maxWidth: '100%',
+              marginTop: 2
+            }}
+          >
+            <TextField
               sx={{
                 width: 300,
                 maxWidth: '100%',
@@ -175,7 +207,6 @@ export default function MyGoodsEdit({ data }) {
             marginTop: 2
           }} variant="contained" onClick={() => handleAdd(data._id)}>상품 업데이트
           </Button>
-
         </Box>
       </Modal>
     </div>

@@ -13,7 +13,7 @@ const Component = styled(Card)`
 export default function AllCard({ data, user }) {
 
     return (
-        <Component sx={{ maxWidth: 300, width: "100%", height: "auto" }}>
+        <Component sx={{ maxWidth: 300, width: "100%", height: "auto", }}>
             <CardActionArea>
                 <CardMedia
                     component="img"

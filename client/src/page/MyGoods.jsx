@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   padding-bottom: 100px;
+  padding-top: 100px;
   display: flex;
   justify-content: center;
   margin : auto;
-
 `
 
 const NotData = styled.div`
@@ -20,12 +20,11 @@ const NotData = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap:2rem 
+  gap:2rem ;
 
 `
 
 const CardStyle = styled.div`
-    padding-top: 100px;
     width: 90%;
     padding-left: 1rem;
     padding-right: 1rem;

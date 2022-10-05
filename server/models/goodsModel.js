@@ -18,6 +18,15 @@ const GoodsSchema = new Schema({
   image: {
     type: String,
   },
+  image2: {
+    type: String,
+  },
+  image3: {
+    type: String,
+  },
+  name:{
+    type: String
+  },
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",
