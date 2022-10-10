@@ -61,7 +61,7 @@ const MyGoods = () => {
   if (goodsData.length === 0) {
     return (
       <NotData>
-        <div style={{ fontSize: "1.5rem" }}>등록된 물건이 없습니다.</div>
+        <div style={{ fontSize: "1.5rem" }}>등록된 상품이 없습니다.</div>
         <Button variant="contained"><Link to="/all" style={{ color: "white", textDecoration: "none" }}>상품 등록하러가기</Link></Button>
       </NotData>
     )

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FcInTransit } from "react-icons/fc";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { BsPeople } from "react-icons/bs";
 import styled from 'styled-components';
 import { CgSun } from "react-icons/cg";
 import { HiMoon } from "react-icons/hi";
@@ -36,7 +36,6 @@ export default function Header({theme,setTheme}) {
         let handler = (e)=>{
           if(!menuRef.current.contains(e.target)){
               setToggle(false);
-            console.log(menuRef.current);
           }      
         };
         document.addEventListener("mousedown", handler);
@@ -61,14 +60,13 @@ export default function Header({theme,setTheme}) {
                 <Link to="/">영진 마켓<FcInTransit /></Link> 
             </h3>
                 <div className='menu'>
-                     <div><Link to="/all">모든 상품</Link></div>       
-                     <DarkToggle onClick={changeTheme}>{icon}</DarkToggle>   
+                     <div><Link to="/all">모든 상품</Link></div>        
                 </div>
 
             {user ?
                 <div className='toggle_container'>
                     <div className='menu'>
-                        {toggle ? <AiOutlineClose onClick={toggleOff} /> :<AiOutlineMenu onClick={toggleOn}/> }
+                      <BsPeople onClick={toggleOn}/>
                     </div>
                     <div className={toggle ? 'toggle' : "none"}>
                         <div to="/mygoods" component={Link}>
@@ -156,19 +154,3 @@ const HeaderStyle = styled.div`
     }
 `
 
-const DarkToggle = styled.div`
-
-    bottom: 2rem;
-    right: 2rem;
-    width: 34px;
-    height: 34px;
-    border-radius: 17px;
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    background-color: ${props => props.theme.toggleBg};
-    color:${props => props.theme.toggleColor};
-    border: 3px solid ${props => props.theme.toggleBorder};
-    z-index: 999;
-    cursor:pointer;
-`

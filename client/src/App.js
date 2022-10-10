@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from './style/GlobalStyle';
+import ThemeToggle from './components/ThemeToggle';
 
 
 const LightTheme = {
@@ -46,7 +47,6 @@ const themes = {
 
 function App() {
   const [theme, setTheme] = useState("light");
-  console.log(theme)
   return (
     <ThemeProvider theme={themes[theme]}>
       <GlobalStyle />
@@ -61,7 +61,8 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Header theme={theme} setTheme={setTheme} />
+      <Header />
+      <ThemeToggle theme={theme} setTheme={setTheme}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/all" element={<All />} />

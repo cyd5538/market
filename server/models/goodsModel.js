@@ -32,6 +32,7 @@ const GoodsSchema = new Schema({
     ref: "User",
     required: true,
   },
+
 });
 
 module.exports = mongoose.model("Goods", GoodsSchema);

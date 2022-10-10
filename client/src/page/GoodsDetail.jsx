@@ -30,6 +30,7 @@ const GoodsDetail = () => {
     }
     const response = await axios.get(`http://localhost:5000/api/goods/${id}`, config);
     setIdData(response.data);
+    console.log(idData)
   }
 
   useEffect(() => {
